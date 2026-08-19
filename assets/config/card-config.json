@@ -1,14 +1,14 @@
 {
     "profile": {
         "name": "rushhiii",
-        "tagline": "Full Stack Developer & AI/ML Enthusiast",
+        "tagline": "Cybersecurity Analyst & AI/ML Enthusiast",
         "location": "Canada",
         "bannerImage": "../ele/card_banner.png",
         "profileImage": "../ele/profile_pic.png",
         "themeColor": "#8b5cf6"
     },
     "skills": [
-        "Full Stack Developer",
+        "Cybersecurity Analyst",
         "Tech Explorer"
     ],
     "socialLinks": [

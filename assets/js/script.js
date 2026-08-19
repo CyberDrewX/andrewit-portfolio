@@ -311,7 +311,7 @@ class PortfolioApp {
         if (!typingText) return;
 
         const roles = [
-            'Full Stack Developer',
+            'Cybersecurity Analyst',
             // 'Computer Science Student',
             'AI Enthusiast',
             'Problem Solver',
