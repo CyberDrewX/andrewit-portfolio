@@ -96,6 +96,7 @@ class PortfolioApp {
     async init() {
         this.setupEventListeners();
         this.initTheme();
+        this.initProfileImageRotation();
         this.initTypingEffect();
         this.initScrollAnimations();
         this.initParallax();
@@ -230,34 +231,53 @@ class PortfolioApp {
 
     applyTheme() {
         const themeToggle = document.getElementById('themeToggle');
-        const profileImage = document.querySelector('.profile-image');
         
         if (this.isDarkTheme) {
             document.documentElement.removeAttribute('data-theme');
             if (themeToggle) {
                 themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             }
-            // Set dark theme profile picture with smooth transition
-            if (profileImage) {
-                this.switchProfileImage(profileImage, './assets/ele/profile_pic.png', 'Tirth Patel - Developer Illustration (Dark Theme)', 'brightness(0.7) contrast(1.1) hue-rotate(0) saturate(1)');
-                // this.switchProfileImage(profileImage, './assets/ele/profile1.jpg', 'Tirth Patel - Developer Illustration (Dark Theme)', 'brightness(0.7) contrast(1.1) hue-rotate(0) saturate(1)');
-                // this.switchProfileImage(profileImage, './assets/ele/profile_pic.jpg', 'Tirth Patel - Developer Illustration (Dark Theme)', 'none');
-
-            }
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
             if (themeToggle) {
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             }
-            // Set light theme profile picture with smooth transition
-            if (profileImage) {
-                // this.switchProfileImage(profileImage, './assets/ele/profile_graba1.jpg', 'Tirth Patel - Developer Illustration (Light Theme)', 'none');
-                this.switchProfileImage(profileImage, './assets/ele/profile2.jpg', 'Tirth Patel - Developer Illustration (Light Theme)', 'none');
-            }
         }
         
         // Store theme preference
         localStorage.setItem('theme', this.isDarkTheme ? 'dark' : 'light');
+    }
+
+    initProfileImageRotation() {
+        const profileImage = document.querySelector('.profile-image');
+        if (!profileImage) return;
+
+        const profileImages = [
+            {
+                src: './assets/ele/Andrew.png',
+                alt: 'Andrew Blair - Developer Illustration'
+            },
+            {
+                src: './assets/ele/logo_variations/andrew1.png',
+                alt: 'Andrew Blair - Portrait'
+            },
+            {
+                src: './assets/ele/logo_variations/andrew2.png',
+                alt: 'Andrew Blair - Portrait'
+            }
+        ];
+
+        profileImages.slice(1).forEach(({ src }) => {
+            const image = new Image();
+            image.src = src;
+        });
+
+        let currentImage = 0;
+        this.profileRotationTimer = setInterval(() => {
+            currentImage = (currentImage + 1) % profileImages.length;
+            const nextImage = profileImages[currentImage];
+            this.switchProfileImage(profileImage, nextImage.src, nextImage.alt);
+        }, 30000);
     }
 
     switchProfileImage(imageElement, newSrc, newAlt, filterStyle = 'none') {
