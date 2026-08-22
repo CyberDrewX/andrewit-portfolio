@@ -36,6 +36,45 @@
       "liveLabel": "Docs", 
       "liveIcon": "fas fa-book",
       "featured": true
+    },
+    {
+      "id": 4,
+      "title": "AI Network Traffic Automation (Wireshark)",
+      "description": "AI-assisted workflow for packet analysis and anomaly triage using Wireshark exports and automated traffic pattern classification.",
+      "technologies": ["Python", "Wireshark", "Scapy", "Pandas", "Automation"],
+      "category": "automation",
+      "image": "./assets/ele/preview.png",
+      "githubUrl": "https://github.com/CyberDrewX",
+      "codeLabel": "Coming Soon",
+      "liveUrl": "#",
+      "secondButton": false,
+      "featured": true
+    },
+    {
+      "id": 5,
+      "title": "SOC Alert Triage Assistant (Placeholder)",
+      "description": "Placeholder project for a rule-based and AI-augmented SOC triage assistant to prioritize alerts and speed up incident response.",
+      "technologies": ["Python", "SIEM", "Prompt Engineering", "Security Operations"],
+      "category": "automation",
+      "image": "./assets/ele/preview.png",
+      "githubUrl": "https://github.com/CyberDrewX",
+      "codeLabel": "Coming Soon",
+      "liveUrl": "#",
+      "secondButton": false,
+      "featured": true
+    },
+    {
+      "id": 6,
+      "title": "Threat Intel Dashboard (Placeholder)",
+      "description": "Placeholder project for aggregating open-source threat intelligence feeds into a single actionable dashboard.",
+      "technologies": ["Python", "OSINT", "APIs", "Data Visualization"],
+      "category": "web",
+      "image": "./assets/ele/preview.png",
+      "githubUrl": "https://github.com/CyberDrewX",
+      "codeLabel": "Coming Soon",
+      "liveUrl": "#",
+      "secondButton": false,
+      "featured": true
     }
   ],
   "categories": [
