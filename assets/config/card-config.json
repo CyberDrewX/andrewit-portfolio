@@ -1,10 +1,10 @@
 {
     "profile": {
-        "name": "rushhiii",
+        "name": "Andrew Blair",
         "tagline": "Cybersecurity Analyst & AI/ML Enthusiast",
-        "location": "Canada",
+        "location": "USA",
         "bannerImage": "../ele/card_banner.png",
-        "profileImage": "../ele/profile_pic.png",
+        "profileImage": "../ele/Andrew.png",
         "themeColor": "#8b5cf6"
     },
     "skills": [
@@ -13,39 +13,27 @@
     ],
     "socialLinks": [
         {
-            "platform": "Discord",
-            "url": "https://discord.com/users/757054095985999923",
-            "icon": "discord",
-            "tooltip": "Discord"
-        },
-        {
             "platform": "LinkedIn",
-            "url": "https://www.linkedin.com/in/rushhiii",
+            "url": "https://www.linkedin.com/in/andrewblairit",
             "icon": "linkedin",
             "tooltip": "LinkedIn"
         },
         {
             "platform": "GitHub",
-            "url": "https://github.com/rushhiii",
+            "url": "https://github.com/CyberDrewX",
             "icon": "github",
             "tooltip": "GitHub"
         },
         {
             "platform": "Email",
-            "url": "mailto:rushiofficial1205@gmail.com",
+            "url": "mailto:andrew.blair@jjay.cuny.edu",
             "icon": "email",
             "tooltip": "Email"
-        },
-        {
-            "platform": "linktree",
-            "url": "https://linktr.ee/its.rushi",
-            "icon": "linktree",
-            "tooltip": "Linktree"
         }
     ],
     "footer": {
-        "text": "Made by Rushi",
-        "url": "https://github.com/rushhiii",
+        "text": "Made by Andrew Blair",
+        "url": "https://github.com/CyberDrewX",
         "showHeart": true
     },
     "animations": {

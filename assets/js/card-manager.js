@@ -202,7 +202,7 @@ class NexusCardManager {
                 name: "Your Name",
                 location: "Your Location",
                 bannerImage: "./assets/ele/repo_banner.png",
-                profileImage: "./assets/ele/profile_pic.png",
+                profileImage: "./assets/ele/Andrew.png",
                 themeColor: "#306dcb"
             },
             skills: ["Skill 1", "Skill 2"],

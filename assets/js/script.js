@@ -101,10 +101,12 @@ class PortfolioApp {
         this.initScrollAnimations();
         this.initParallax();
         this.initActiveNavigation();
+        this.initCertificationModal();
         // this.init3DCardEffects();
         this.init3DEffects();
         this.initAdvancedFeatures();
         this.setCurrentYear();
+        this.initScriptureRotation();
         await this.loadProjects();
         this.renderFilterButtons();
         this.renderProjects();
@@ -212,6 +214,87 @@ class PortfolioApp {
         });
     }
 
+    initCertificationModal() {
+        const overlay = document.getElementById('certModalOverlay');
+        const modal = overlay ? overlay.querySelector('.cert-modal') : null;
+        const closeBtn = document.getElementById('certModalClose');
+        const titleEl = document.getElementById('certModalTitle');
+        const statusEl = document.getElementById('certModalStatus');
+        const iconWrap = document.getElementById('certModalIconWrap');
+        const descriptionEl = document.getElementById('certModalDescription');
+        const listEl = document.getElementById('certModalList');
+
+        if (!overlay || !modal || !closeBtn || !titleEl || !statusEl || !iconWrap || !descriptionEl || !listEl) {
+            return;
+        }
+
+        let revealTimer = null;
+
+        const openModal = (card) => {
+            const title = card.dataset.certTitle || 'Certification';
+            const status = card.dataset.certStatus || 'Earned';
+            const iconClass = card.dataset.certIcon || 'fas fa-certificate';
+            const description = card.dataset.certDescription || '';
+            const points = (card.dataset.certPoints || '').split('|').filter(Boolean);
+
+            titleEl.textContent = title;
+            statusEl.textContent = status;
+            statusEl.style.color = status === 'Earned' ? '#4ade80' : status === 'In Progress' ? '#fbbf24' : '#a5b4fc';
+            iconWrap.innerHTML = `<i class="${iconClass}"></i>`;
+            descriptionEl.textContent = description;
+            listEl.innerHTML = points.map(item => `<li>${item}</li>`).join('');
+
+            modal.classList.remove('show-badge');
+            overlay.classList.add('visible');
+            document.body.classList.add('modal-open');
+
+            if (title === 'CompTIA Network+') {
+                if (revealTimer) {
+                    clearTimeout(revealTimer);
+                }
+
+                revealTimer = setTimeout(() => {
+                    if (overlay.classList.contains('visible')) {
+                        modal.classList.add('show-badge');
+                    }
+                }, 2200);
+            } else {
+                if (revealTimer) {
+                    clearTimeout(revealTimer);
+                }
+                modal.classList.remove('show-badge');
+            }
+        };
+
+        const closeModal = () => {
+            if (revealTimer) {
+                clearTimeout(revealTimer);
+                revealTimer = null;
+            }
+
+            modal.classList.remove('show-badge');
+            overlay.classList.remove('visible');
+            document.body.classList.remove('modal-open');
+        };
+
+        document.querySelectorAll('.certification-card').forEach((card) => {
+            card.addEventListener('click', () => openModal(card));
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && overlay.classList.contains('visible')) {
+                closeModal();
+            }
+        });
+    }
+
     initTheme() {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
@@ -255,7 +338,7 @@ class PortfolioApp {
         const profileImages = [
             {
                 src: './assets/ele/Andrew.png',
-                alt: 'Andrew Blair - Developer Illustration'
+                alt: 'Andrew Blair - Portrait'
             },
             {
                 src: './assets/ele/logo_variations/andrew1.png',
@@ -831,7 +914,7 @@ class PortfolioApp {
             this.projects = data.projects;
             this.categories = data.categories || [
                 { id: "all", name: "All", icon: "fas fa-th-large", visible: true },
-                { id: "web", name: "Web Dev", icon: "fas fa-globe", visible: true },
+                { id: "network-security", name: "Network Security", icon: "fas fa-shield-alt", visible: true },
                 { id: "automation", name: "Automation", icon: "fas fa-robot", visible: true }
             ];
         } catch (error) {
@@ -843,8 +926,8 @@ class PortfolioApp {
                     title: "Modern Portfolio Website",
                     description: "A responsive personal website showcasing projects with modern design patterns and animations.",
                     technologies: ["HTML5", "CSS3", "JavaScript", "Modern Design"],
-                    category: "web",
-                    githubUrl: "https://github.com/rushhiii/portfolio",
+                    category: "network-security",
+                    githubUrl: "https://github.com/CyberDrewX",
                     liveUrl: "#",
                     featured: true
                 },
@@ -853,7 +936,7 @@ class PortfolioApp {
                     title: "Task Management System",
                     description: "Full-stack web application for task management with real-time updates and user authentication.",
                     technologies: ["React", "Node.js", "MongoDB", "Express"],
-                    category: "web",
+                    category: "network-security",
                     githubUrl: "https://github.com/rushhiii/task-manager",
                     liveUrl: "#",
                     featured: true
@@ -871,7 +954,7 @@ class PortfolioApp {
             ];
             this.categories = [
                 { id: "all", name: "All", icon: "fas fa-th-large", visible: true },
-                { id: "web", name: "Web Dev", icon: "fas fa-globe", visible: true },
+                { id: "network-security", name: "Network Security", icon: "fas fa-shield-alt", visible: true },
                 { id: "automation", name: "Automation", icon: "fas fa-robot", visible: true }
             ];
         }
@@ -1254,6 +1337,29 @@ class PortfolioApp {
         }
     }
 
+    initScriptureRotation() {
+        const verseElement = document.getElementById('scriptureVerse');
+        if (!verseElement) return;
+
+        const verses = [
+            '"I can do all things through Christ who strengthens me." - Philippians 4:13',
+            '"Trust in the Lord with all your heart and lean not on your own understanding." - Proverbs 3:5',
+            '"Whatever you do, work at it with all your heart." - Colossians 3:23',
+            '"Be strong and courageous. Do not be afraid; do not be discouraged." - Joshua 1:9'
+        ];
+
+        const showVerse = () => {
+            const hourIndex = Math.floor(Date.now() / 3600000) % verses.length;
+            verseElement.classList.remove('scripture-fade');
+            void verseElement.offsetWidth;
+            verseElement.textContent = verses[hourIndex];
+            verseElement.classList.add('scripture-fade');
+        };
+
+        showVerse();
+        this.scriptureRotationTimer = setInterval(showVerse, 3600000);
+    }
+
     handleResize() {
         // Handle responsive behavior
         if (window.innerWidth > 960 && this.isMenuOpen) {
@@ -1539,6 +1645,10 @@ class EnhancedFeatures {
     }
 
     initCursorEffects() {
+        if (window.matchMedia('(pointer: coarse)').matches) {
+            return;
+        }
+
         // Custom cursor for interactive elements
         const cursor = document.createElement('div');
         cursor.className = 'custom-cursor';
@@ -1556,7 +1666,15 @@ class EnhancedFeatures {
         `;
         document.body.appendChild(cursor);
 
+        const isTextInput = (element) => element && element.closest && element.closest('input, textarea, select, [contenteditable="true"]');
+
         document.addEventListener('mousemove', (e) => {
+            const target = e.target;
+            if (isTextInput(target)) {
+                cursor.style.opacity = '0';
+                return;
+            }
+
             cursor.style.left = e.clientX - 10 + 'px';
             cursor.style.top = e.clientY - 10 + 'px';
             cursor.style.opacity = '1';
@@ -1572,7 +1690,19 @@ class EnhancedFeatures {
 
         // Scale cursor on interactive elements
         document.addEventListener('mouseover', (e) => {
-            if (e.target.matches('a, button, .btn, .filter-btn, .project-card')) {
+            const target = e.target;
+            if (!target || !(target instanceof Element)) {
+                cursor.style.transform = 'scale(1)';
+                return;
+            }
+
+            if (isTextInput(target)) {
+                cursor.style.opacity = '0';
+                cursor.style.transform = 'scale(1)';
+                return;
+            }
+
+            if (target.matches('a, button, .btn, .filter-btn, .project-card, .certification-card')) {
                 cursor.style.transform = 'scale(1.5)';
             } else {
                 cursor.style.transform = 'scale(1)';
